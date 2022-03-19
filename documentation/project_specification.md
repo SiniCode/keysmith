@@ -1,4 +1,4 @@
-# Software Specification
+# Project Specification
 
 ## Goal
 
