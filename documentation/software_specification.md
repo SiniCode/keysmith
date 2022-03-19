@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal is to produce an encryption application followint the [RSA algorithm](https://en.wikipedia.org/wiki/RSA_(cryptosystem)).
+The goal is to produce an encryption application following the [RSA algorithm](https://en.wikipedia.org/wiki/RSA_(cryptosystem)).
 
 ## Features
 
