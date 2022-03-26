@@ -1,6 +1,17 @@
 import random
 
 def find_exponent(number):
+    """This is a helper function for the Miller-Rabin primality test.
+       The function finds integers m and p such that the given number = m * 2^p.
+
+    Args:
+        number: Integer value (the number tested for primality - 1).
+
+    Returns:
+        A tuple where the first value gives the exponent for the first test value in the primality test (m),
+        and the second value determines the maximum number of iterations within each test round (p).
+    """
+
     result = (1, 1)
     power = 1
     while True:
@@ -10,11 +21,11 @@ def find_exponent(number):
         power += 1
     return result
 
-def miller_rabin_primality_test(number, iterations):
+def miller_rabin_primality_test(number, iterations=128):
     """This function is a probabilistic primality test for the given number.
 
     Args:
-        number: Integer value to be tested
+        number: Integer value to be tested.
         iterations: Integer value that defines the number of iterations.
                     The higher the value, the more reliable the result.
 
@@ -41,14 +52,14 @@ def miller_rabin_primality_test(number, iterations):
     return True
 
 
-def create_keys(length):
+def create_keys(length=1024):
     """This function creates a key pair necessary for encryption and decryption.
 
     Args:
-        length: Integer value that expresses the minimum key length in bits
+        length: Integer value that expresses the minimum key length in bits.
 
     Returns:
-        A tuple containing the public key and the private key, ((modulus, public_exponent), (modulus, private_exponent))
+        A tuple containing the public key and the private key, ((modulus, public_exponent), (modulus, private_exponent)).
     """
 
     primes = []
