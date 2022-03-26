@@ -5,5 +5,5 @@ The encryption follows the [RSA algorithm](https://en.wikipedia.org/wiki/RSA_(cr
 
 ## Weekly Reports
 
-[Week 1](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_1.md)
-[Week 2](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_2.md)
+* [Week 1](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_1.md)
+* [Week 2](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_2.md)
