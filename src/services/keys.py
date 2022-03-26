@@ -1,5 +1,6 @@
 import random
 
+
 def find_exponent(number):
     """This is a helper function for the Miller-Rabin primality test.
        The function finds integers m and p such that the given number = m * 2^p.
@@ -21,6 +22,7 @@ def find_exponent(number):
         power += 1
     return result
 
+
 def miller_rabin_primality_test(number, iterations=128):
     """This function is a probabilistic primality test for the given number.
 
@@ -39,7 +41,7 @@ def miller_rabin_primality_test(number, iterations=128):
     for i in range(iterations):
         base = random.randint(2, number-2)
         test_value = pow(base, exponent, number)
-        if test_value != 1 and test_value != number-1:
+        if test_value not in (1, number-1):
             j = 1
             while j < power and test_value != number-1:
                 test_value = pow(test_value, 2, number)
@@ -65,12 +67,12 @@ def create_keys(length=1024):
     primes = []
     while len(primes) < 2:
         number = random.getrandbits(length)
-        if number == 2 or number == 3:
+        if number in (2, 3):
             primes.append(number)
             continue
         if number == 1 or number % 2 == 0:
             continue
-        if miller_rabin_primality_test(number) == False:
+        if miller_rabin_primality_test(number) is False:
             continue
         primes.append(number)
 
@@ -80,4 +82,4 @@ def create_keys(length=1024):
 
     private_exponent = "TODO"
 
-    return (public_key, private_key)
+    return ((modulus, public_exponent), (modulus, private_exponent))
