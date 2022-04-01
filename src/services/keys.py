@@ -53,30 +53,6 @@ def miller_rabin_primality_test(number, iterations=128):
 
     return True
 
-def find_gcd(number1, number2):
-    """This function uses the Euclideand algorithm to return the greatest common divisor of two integers.
-
-    Args:
-        number1: Integer value
-        number2: Integer value
-
-    Returns:
-        Integer value that is the gcd of number1 and number2.
-    """
-
-    if number1 == number2:
-        return number1
-
-    dividend = max(number1, number2)
-    divisor = min(number1, number2)
-    remainder = dividend % divisor
-
-    while remainder != 0:
-        dividend = divisor
-        divisor = remainder
-        remainder = dividend % divisor
-
-    return divisor
 
 def extended_euclidean(number1, number2):
     """This function uses the extended Euclidean algorithm to calculate the greatest
@@ -86,8 +62,8 @@ def extended_euclidean(number1, number2):
        number1 modulo number2, and it is used as the private key exponent.
 
     Args:
-        number1: Integer value (the public exponent)
-        number2: Integer value (the lcm)
+        number1: Integer value
+        number2: Integer value
 
     Returns:
         A tuple of integers: (gcd, coefficient_x, coefficient_y)
@@ -128,7 +104,7 @@ def create_keys(length=1024):
 
     modulus = primes[0] * primes[1]
 
-    gcd = find_gcd(primes[0]-1, primes[1]-1)
+    gcd = extended_euclidean(primes[0]-1, primes[1]-1)[0]
 
     lcm = abs((primes[0]-1) * (primes[1]-1)) // gcd
 
