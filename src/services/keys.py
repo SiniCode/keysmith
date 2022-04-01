@@ -36,6 +36,12 @@ def miller_rabin_primality_test(number, iterations=128):
         False if it is not.
     """
 
+    if number in (2, 3):
+        return True
+
+    if number == 1 or number % 2 == 0:
+        return False
+
     exponent, power = find_exponent(number-1)
 
     for i in range(iterations):
@@ -93,11 +99,6 @@ def create_keys(length=1024):
     primes = []
     while len(primes) < 2:
         number = random.getrandbits(length)
-        if number in (2, 3):
-            primes.append(number)
-            continue
-        if number == 1 or number % 2 == 0:
-            continue
         if miller_rabin_primality_test(number) is False:
             continue
         primes.append(number)
