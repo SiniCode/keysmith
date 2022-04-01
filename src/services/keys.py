@@ -110,11 +110,11 @@ def create_keys(length=1024):
     lcm = abs((primes[0]-1) * (primes[1]-1)) // gcd
 
     public_exponent = 65537
-    if public_exponent >= lcm or find_gcd(public_exponent, lcm) != 1:
+    if public_exponent >= lcm or extended_euclidean(public_exponent, lcm)[0] != 1:
 
         while True:
             public_exponent = random.randint(2, lcm-1)
-            if find_gcd(public_exponent, lcm) == 1:
+            if extended_euclidean(public_exponent, lcm)[0] == 1:
                 break
 
     private_exponent = extended_euclidean(public_exponent, lcm)[1]
