@@ -2,7 +2,7 @@
 
 ## Unit testing
 
-At the momennt (on week 3), the software has automated unit tests for the functions that are used in key creation.
+At the moment (on week 3), the software has automated unit tests for the functions that are used in key creation.
 Test coverage is 93 %.
 
 ![](./images/coverage_report.png)
