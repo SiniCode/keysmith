@@ -7,17 +7,21 @@ The goal is to produce an encryption application following the [RSA algorithm](h
 ## Features
 
 The user can
-* create secure encryption keys: each key must be a prime number and at least 1024 bits long
+* create secure encryption keys: each key must be at least 1024 bits long
 * encrypt a message with a specified key
 * decrypt a message with a specified key
 
 There will be a simple graphical user interface to make it convenient for the user to create the keys and type their messages.
 
-## Algorithms and Data Structures (incomplete)
+## Algorithms and Data Structures
 
 ### Miller-Rabin Primality Test 
-[Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) is used to check the keys.
+[Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) is used in key creation. The public and private key have a common part, modulus, that has to be a product of two large prime numbers.
 The test does not guarantee the primality of a number but the level of certainty is high enough for the purposes of this application.
+
+### Extended Euclidean Algorithm
+[Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) is also used in key creation when computing the public and private key exponent.
+The algorithm calculates the greatest common divisor of two numbers, a and b, as well as the coefficients, x and y, such that ax + by = gcd(a,b).
 
 ## Requested Background Information
 
