@@ -1,6 +1,7 @@
 from tkinter import ttk, Message, Text, INSERT, constants
 import services.keys
 
+
 class KeyCreationView:
     def __init__(self, root, handle_encrypt, handle_decrypt):
         self._root = root
@@ -40,10 +41,14 @@ class KeyCreationView:
         private_key = Text(self._frame, height=15)
         private_key.insert(INSERT, private_text)
 
-        public_label.grid(row=4, column=0, columnspan=2, padx=5, pady=5, sticky=constants.W)
-        public_key.grid(row=5, column=0, columnspan=2, padx=5, pady=5, sticky=constants.EW)
-        private_label.grid(row=6, column=0, columnspan=2, padx=5, pady=5, sticky=constants.W)
-        private_key.grid(row=7, column=0, columnspan=2, padx=5, pady=5, sticky=constants.EW)
+        public_label.grid(row=4, column=0, columnspan=2,
+                          padx=5, pady=5, sticky=constants.W)
+        public_key.grid(row=5, column=0, columnspan=2,
+                        padx=5, pady=5, sticky=constants.EW)
+        private_label.grid(row=6, column=0, columnspan=2,
+                           padx=5, pady=5, sticky=constants.W)
+        private_key.grid(row=7, column=0, columnspan=2,
+                         padx=5, pady=5, sticky=constants.EW)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -81,9 +86,14 @@ class KeyCreationView:
             command=self._create_keys
         )
 
-        encryption_button.grid(row=0, column=0, padx=5, pady=5, sticky=constants.W)
-        decryption_button.grid(row=0, column=1, padx=5, pady=5, sticky=constants.W)
-        frame_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky=constants.EW)
-        instructions.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky=constants.W)
-        create_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky=constants.EW)
+        encryption_button.grid(row=0, column=0, padx=5,
+                               pady=5, sticky=constants.W)
+        decryption_button.grid(row=0, column=1, padx=5,
+                               pady=5, sticky=constants.W)
+        frame_label.grid(row=1, column=0, columnspan=2,
+                         padx=10, pady=10, sticky=constants.EW)
+        instructions.grid(row=2, column=0, columnspan=2,
+                          padx=5, pady=5, sticky=constants.W)
+        create_button.grid(row=3, column=0, columnspan=2,
+                           padx=10, pady=10, sticky=constants.EW)
         self._frame.grid_columnconfigure(1, weight=1)

@@ -1,5 +1,6 @@
 from ui.key_creation_view import KeyCreationView
 
+
 class UI:
     def __init__(self, root):
         self._root = root
