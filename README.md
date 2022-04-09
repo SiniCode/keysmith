@@ -12,7 +12,7 @@ The encryption follows the [RSA algorithm](https://en.wikipedia.org/wiki/RSA_(cr
 
 ## Instructions for Use
 
-Before running the app the first time, install the necessary dependencies with this command:
+Before running the app for the first time, install the necessary dependencies with this command:
 
 ```bash
 poetry install
