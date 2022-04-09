@@ -8,3 +8,18 @@ The encryption follows the [RSA algorithm](https://en.wikipedia.org/wiki/RSA_(cr
 * [Week 1](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_1.md)
 * [Week 2](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_2.md)
 * [Week 3](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_3.md)
+* [Week 4](https://github.com/SiniCode/keysmith/blob/main/documentation/weekly_report_4.md)
+
+## Instructions for Use
+
+Before running the app the first time, install the necessary dependencies with this command:
+
+```bash
+poetry install
+```
+
+Launch the app with this command:
+
+```bash
+poetry run invoke start
+```
