@@ -1,6 +1,7 @@
 from hashlib import sha512
 from random import choice, randrange
 
+
 def byte_string_to_binary_string(byte_string):
     """This function turns a byte string into a binary string.
 
@@ -21,6 +22,7 @@ def byte_string_to_binary_string(byte_string):
 
     return result
 
+
 def text_to_binary_string(text):
     """This function turns a plaintext message into a binary string.
 
@@ -33,6 +35,7 @@ def text_to_binary_string(text):
 
     return byte_string_to_binary_string(text.encode("utf-8"))
 
+
 def binary_string_to_text(binary_string):
     """This function turns a binary string into a plaintext message.
 
@@ -44,9 +47,10 @@ def binary_string_to_text(binary_string):
     """
 
     int_value = int(binary_string, 2)
-    bytes = int_value.to_bytes((int_value.bit_length() + 7) // 8, "big")
+    byte_value = int_value.to_bytes((int_value.bit_length() + 7) // 8, "big")
 
-    return bytes.decode()
+    return byte_value.decode()
+
 
 def bitwise_xor(binary_str1, binary_str2):
     """This function executes a xor operation on two binary strings.
@@ -73,6 +77,7 @@ def bitwise_xor(binary_str1, binary_str2):
 
     return result
 
+
 def add_padding(mod_len, message, rand_bits):
     """This function turns the un-padded plaintext message into padded plaintext.
 
@@ -94,6 +99,7 @@ def add_padding(mod_len, message, rand_bits):
     result2 = bitwise_xor(rand_bits, mask2)
 
     return result1 + result2
+
 
 def generate_mask(seed, length):
     """This function generates a mask of given length to be used with padding.
@@ -117,8 +123,21 @@ def generate_mask(seed, length):
 
     return byte_string_to_binary_string(byte_string[:length // 8])
 
-def remove_padding():
-    pass
+
+def remove_padding(message):
+    """This function removes the padding from a decrypted message.
+
+    Args:
+        message: Binary string that is the decrypted message with padding.
+
+    Returns:
+        A binary string that is the original message.
+    """
+
+    # Not implemented yet
+
+    return message
+
 
 def generate_random_binary_string(length):
     """This function generates a random binary string of the given length.
@@ -137,6 +156,7 @@ def generate_random_binary_string(length):
         result += choice(values)
 
     return result
+
 
 def encrypt_message(message, key_modulus, key_exponent):
     """This function turns the plaintext message into ciphertext.

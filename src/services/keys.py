@@ -44,16 +44,16 @@ def miller_rabin_primality_test(number, iterations=128):
 
     exponent, power = find_exponent(number-1)
 
-    for i in range(iterations):
+    for _ in range(iterations):
         base = random.randint(2, number-2)
         test_value = pow(base, exponent, number)
         if test_value not in (1, number-1):
-            j = 1
-            while j < power and test_value != number-1:
+            i = 1
+            while i < power and test_value != number-1:
                 test_value = pow(test_value, 2, number)
                 if test_value == 1:
                     return False
-                j += 1
+                i += 1
             if test_value != number-1:
                 return False
 

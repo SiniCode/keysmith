@@ -2,6 +2,7 @@ import unittest
 from sys import getsizeof
 import services.keys
 
+
 class TestKeyCreationFunctions(unittest.TestCase):
 
     def test_find_exponent(self):
@@ -15,13 +16,15 @@ class TestKeyCreationFunctions(unittest.TestCase):
     def test_miller_rabin_primality_test_with_prime(self):
         self.assertTrue(services.keys.miller_rabin_primality_test(2))
         self.assertTrue(services.keys.miller_rabin_primality_test(109))
-        self.assertTrue(services.keys.miller_rabin_primality_test(19134702400093278081449423917))
+        self.assertTrue(services.keys.miller_rabin_primality_test(
+            19134702400093278081449423917))
 
     def test_miller_rabin_primality_test_with_composite(self):
         self.assertFalse(services.keys.miller_rabin_primality_test(1))
         self.assertFalse(services.keys.miller_rabin_primality_test(133))
         self.assertFalse(services.keys.miller_rabin_primality_test(12668))
-        self.assertFalse(services.keys.miller_rabin_primality_test(42738459243))
+        self.assertFalse(
+            services.keys.miller_rabin_primality_test(42738459243))
 
     def test_extended_euclidean(self):
         result = services.keys.extended_euclidean(1180, 482)
