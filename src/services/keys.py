@@ -99,7 +99,7 @@ def create_keys(length=1024):
     primes = []
     while len(primes) < 2:
         number = random.getrandbits(length)
-        if miller_rabin_primality_test(number) is False:
+        if miller_rabin_primality_test(number) is False or number in primes:
             continue
         primes.append(number)
 
