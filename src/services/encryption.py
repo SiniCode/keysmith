@@ -217,6 +217,10 @@ def decrypt_message(ciphertext, key_modulus, key_exponent):
 
     return binary_string_to_text(message_bin)
 
+
+#### Below there are simpler implementations for encryption, decryption, and padding.
+#### They are in use for now since the functions above do not work with all inputs.
+
 def simple_encrypt(message, key_mod, key_exp):
     """This function is a simpler alternative for encryption since there is no padding.
 
@@ -228,9 +232,10 @@ def simple_encrypt(message, key_mod, key_exp):
     Returns:
         Integer value that is the encrypted message.
     """
-    m_bin = text_to_binary_string(message)
-    m_int = int(m_bin, 2)
-    cipher_int = pow(m_int, key_exp, key_mod)
+    message_bin = text_to_binary_string(message)
+    padded_bin = simple_padding(message_bin)
+    padded_int = int(padded_bin, 2)
+    cipher_int = pow(padded_int, key_exp, key_mod)
 
     return cipher_int
 
@@ -246,8 +251,20 @@ def simple_decrypt(cipher, key_mod, key_exp):
         String value that is the decrypted message.
     """
 
-    m_int = pow(cipher, key_exp, key_mod)
-    m_bin = bin(m_int)
-    message = binary_string_to_text(m_bin)
+    padded_int = pow(cipher, key_exp, key_mod)
+    padded_bin = bin(padded_int)
+    message = binary_string_to_text(padded_bin[:len(padded_bin) - 64])
 
     return message
+
+def simple_padding(message):
+    """This function adds a simple padding to the message.
+
+    Args:
+        message: Binary string that is the unpadded message.
+
+    Returns:
+        A binary string that is the padded message.
+    """
+    padded_message = message + generate_random_binary_string()
+    return padded_message
