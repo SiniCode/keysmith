@@ -85,6 +85,26 @@ def extended_euclidean(number1, number2):
 
     return (gcd, coefficient_x, coefficient_y)
 
+def generate_primes(product_length=1024):
+    """This function generates two probable prime numbers so that the bit length of their product is (around) the given length.
+
+    Args:
+        product_length: Integer value that defines the minimum length for the product of the generated primes.
+
+    Returns:
+        A list of two probable prime numbers.
+    """
+
+    primes = []
+    variation = 3
+    while len(primes) < 2:
+        number = getrandbits(product_length // 2 + variation)
+        if miller_rabin_primality_test(number) is False or number in primes:
+            continue
+        primes.append(number)
+        variation = 5
+
+    return primes
 
 def create_keys(length=1024):
     """This function creates a key pair necessary for encryption and decryption.
@@ -96,17 +116,10 @@ def create_keys(length=1024):
         A tuple containing the public key and the private key, ((modulus, public_exponent), (modulus, private_exponent)).
     """
 
-    primes = []
-    while len(primes) < 2:
-        number = random.getrandbits(length)
-        if miller_rabin_primality_test(number) is False or number in primes:
-            continue
-        primes.append(number)
-
+    primes = generate_primes(length)
     modulus = primes[0] * primes[1]
 
     gcd = extended_euclidean(primes[0]-1, primes[1]-1)[0]
-
     lcm = abs((primes[0]-1) * (primes[1]-1)) // gcd
 
     public_exponent = 65537
