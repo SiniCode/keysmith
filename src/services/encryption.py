@@ -216,3 +216,38 @@ def decrypt_message(ciphertext, key_modulus, key_exponent):
     message_bin = remove_padding(mod_len, padded_bin)
 
     return binary_string_to_text(message_bin)
+
+def simple_encrypt(message, key_mod, key_exp):
+    """This function is a simpler alternative for encryption since there is no padding.
+
+    Args:
+        message: String value that is the plaintext message.
+        key_mod: Integer value that is the encryption key modulus.
+        key_exp: Integer value that is the encryption key exponent.
+
+    Returns:
+        Integer value that is the encrypted message.
+    """
+    m_bin = text_to_binary_string(message)
+    m_int = int(m_bin, 2)
+    cipher_int = pow(m_int, key_exp, key_mod)
+
+    return cipher_int
+
+def simple_decrypt(cipher, key_mod, key_exp):
+    """This is the simpler decryption function to be used with simple_encrypt.
+
+    Args:
+        cipher: Integer value that is the encrypted message.
+        key_mod: Integer value that is the decryption key modulus.
+        key_exp: Integer value that is the decryption key exponent.
+
+    Returns:
+        String value that is the decrypted message.
+    """
+
+    m_int = pow(cipher, key_exp, key_mod)
+    m_bin = bin(m_int)
+    message = binary_string_to_text(m_bin)
+
+    return message
