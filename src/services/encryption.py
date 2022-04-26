@@ -1,6 +1,9 @@
 from hashlib import sha512
 from random import choice, randrange
 
+class MessageTooLongError(Exception):
+    pass
+
 
 def byte_string_to_binary_string(byte_string):
     """This function turns a byte string into a binary string.
@@ -91,11 +94,11 @@ def add_padding(mod_len, message, rand_bits):
     """
 
     bin_message = text_to_binary_string(message)
-    bin_message += "0" * (mod_len - len(bin_message) - len(rand_bits))
-    mask1 = generate_mask(rand_bits, mod_len - len(rand_bits))
+    bin_message += "0" * (mod_len - len(bin_message) - 64 - 8)
+    mask1 = generate_mask(rand_bits, mod_len - 64 - 8)
     result1 = bitwise_xor(bin_message, mask1)
 
-    mask2 = generate_mask(result1, len(rand_bits))
+    mask2 = generate_mask(result1, 64)
     result2 = bitwise_xor(rand_bits, mask2)
 
     return result1 + result2
@@ -134,12 +137,16 @@ def remove_padding(message):
         A binary string that is the original message.
     """
 
-    # Not implemented yet
+    part1 = message[:mod_len - 64 - 8]
+    part2 = message[mod_len - 64 - 8:]
 
-    return message
+    rand_bits = bitwise_xor(part2, generate_mask(part1, 64))
+    original = bitwise_xor(part1, generate_mask(rand_bits, len(part1)))
+
+    return original.rstrip("0")
 
 
-def generate_random_binary_string(length):
+def generate_random_binary_string(length=64):
     """This function generates a random binary string of the given length.
 
     Args:
@@ -170,10 +177,13 @@ def encrypt_message(message, key_modulus, key_exponent):
         A string that is the encrypted message.
     """
 
-    mod_length = len(bin(key_modulus)[2:])
+    mod_length = key_modulus.bit_length()
     message_length = len(text_to_binary_string(message))
-    limit = mod_length - message_length
-    seed = generate_random_binary_string(randrange(8, limit, 8))
+
+    if message_length >= mod_length - 64:
+        raise MessageTooLongError
+
+    seed = generate_random_binary_string()
 
     padded_message = add_padding(mod_length, message, seed)
     padded_int = int(padded_message, 2)
@@ -199,7 +209,9 @@ def decrypt_message(ciphertext, key_modulus, key_exponent):
     ciphertext_int = int(ciphertext, 2)
     padded_int = pow(ciphertext_int, key_exponent, key_modulus)
     padded_bin = bin(padded_int)[2:]
-    message_bin = remove_padding(padded_bin)
-    message = binary_string_to_text(message_bin)
+    mod_len = key_modulus.bit_length()
+    while len(padded_bin) < mod_len - 8:
+        padded_bin = "0" + padded_bin
+    message_bin = remove_padding(mod_len, padded_bin)
 
-    return message
+    return binary_string_to_text(message_bin)
