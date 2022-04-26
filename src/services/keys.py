@@ -1,4 +1,4 @@
-import random
+from random import randint, getrandbits
 
 
 def find_exponent(number):
@@ -45,7 +45,7 @@ def miller_rabin_primality_test(number, iterations=128):
     exponent, power = find_exponent(number-1)
 
     for _ in range(iterations):
-        base = random.randint(2, number-2)
+        base = randint(2, number-2)
         test_value = pow(base, exponent, number)
         if test_value not in (1, number-1):
             i = 1
@@ -126,7 +126,7 @@ def create_keys(length=1024):
     if public_exponent >= lcm or extended_euclidean(public_exponent, lcm)[0] != 1:
 
         while True:
-            public_exponent = random.randint(2, lcm-1)
+            public_exponent = randint(2, lcm-1)
             if extended_euclidean(public_exponent, lcm)[0] == 1:
                 break
 
