@@ -50,7 +50,7 @@ def binary_string_to_text(binary_string):
     """
 
     int_value = int(binary_string, 2)
-    byte_value = int_value.to_bytes((int_value.bit_length() + 7) // 8, "big")
+    byte_value = int_value.to_bytes((int_value.bit_length() + 7) // 8, byteorder="big")
 
     return byte_value.decode()
 
@@ -127,10 +127,11 @@ def generate_mask(seed, length):
     return byte_string_to_binary_string(byte_string[:length // 8])
 
 
-def remove_padding(message):
+def remove_padding(mod_len, message):
     """This function removes the padding from a decrypted message.
 
     Args:
+        mod_len: Integer value that is the bit length of the key modulus.
         message: Binary string that is the decrypted message with padding.
 
     Returns:

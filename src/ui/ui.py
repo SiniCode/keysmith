@@ -1,6 +1,6 @@
 from ui.key_creation_view import KeyCreationView
 from ui.encryption_view import EncryptionView
-
+from ui.decryption_view import DecryptionView
 
 class UI:
     def __init__(self, root):
@@ -39,4 +39,12 @@ class UI:
         self._current_view.pack()
 
     def _show_decryption_view(self):
-        pass
+        self._hide_current_view()
+
+        self._current_view = DecryptionView(
+            self._root,
+            self._show_key_creation_view,
+            self._show_encryption_view
+        )
+
+        self._current_view.pack()
