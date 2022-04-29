@@ -4,6 +4,31 @@ from random import choice, randrange
 class MessageTooLongError(Exception):
     pass
 
+def message_to_blocks(message):
+    """This function enables encrypting longer messages by splitting it into blocks of 512 bits.
+
+    Args:
+        message: Binary string that is the original message.
+
+    Returns:
+        A list of binary strings, with the length of 512 bits each."""
+
+    if len(message) <= 512:
+        message = "0" * (512 - len(message)) + message
+        return [message]
+
+    blocks = []
+
+    for index in range(0, len(message), 512):
+        if len(message) > index + 512:
+            block = message[index : index + 512]
+        else:
+            block = message[index : ]
+            block = "0" * (512 - len(block)) + block
+
+        blocks.append(block)
+
+    return blocks
 
 def byte_string_to_binary_string(byte_string):
     """This function turns a byte string into a binary string.
@@ -222,7 +247,7 @@ def decrypt_message(ciphertext, key_modulus, key_exponent):
 #### They are in use for now since the functions above do not work with all inputs.
 
 def simple_encrypt(message, key_mod, key_exp):
-    """This function is a simpler alternative for encryption since there is no padding.
+    """This function is a simpler alternative for encryption with a simple padding, not oaep.
 
     Args:
         message: String value that is the plaintext message.
@@ -230,20 +255,24 @@ def simple_encrypt(message, key_mod, key_exp):
         key_exp: Integer value that is the encryption key exponent.
 
     Returns:
-        Integer value that is the encrypted message.
+        String consisting of the encrypted blocks separated by "#".
     """
     message_bin = text_to_binary_string(message)
-    padded_bin = simple_padding(message_bin)
-    padded_int = int(padded_bin, 2)
-    cipher_int = pow(padded_int, key_exp, key_mod)
+    message_blocks = message_to_blocks(message_bin)
+    decrypted_blocks = ""
+    for block in message_blocks:
+        padded_bin = simple_padding(block)
+        padded_int = int(padded_bin, 2)
+        cipher_block = pow(padded_int, key_exp, key_mod)
+        decrypted_blocks += str(cipher_block) + "#"
 
-    return cipher_int
+    return decrypted_blocks
 
 def simple_decrypt(cipher, key_mod, key_exp):
     """This is the simpler decryption function to be used with simple_encrypt.
 
     Args:
-        cipher: Integer value that is the encrypted message.
+        cipher: String that consists of the encrypted message blocks.
         key_mod: Integer value that is the decryption key modulus.
         key_exp: Integer value that is the decryption key exponent.
 
@@ -251,9 +280,12 @@ def simple_decrypt(cipher, key_mod, key_exp):
         String value that is the decrypted message.
     """
 
-    padded_int = pow(cipher, key_exp, key_mod)
-    padded_bin = bin(padded_int)
-    message = binary_string_to_text(padded_bin[:len(padded_bin) - 64])
+    encrypted_blocks = cipher.split("#")
+    message = ""
+    for block in encrypted_blocks[0:-1]:
+        padded_int = pow(int(block), key_exp, key_mod)
+        padded_bin = bin(padded_int)
+        message += binary_string_to_text(padded_bin[2:len(padded_bin) - 64].lstrip("0"))
 
     return message
 

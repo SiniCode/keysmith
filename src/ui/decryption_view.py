@@ -23,7 +23,7 @@ class DecryptionView:
         self._frame.destroy()
 
     def _decrypt_message(self):
-        ciphertext = int(self._ciphertext.get("1.0", "end - 1 chars"))
+        ciphertext = self._ciphertext.get("1.0", "end - 1 chars")
         key = self._key.get("1.0", "end - 1 chars")
         key_parts = key.split(",")
         key_modulus = int(key_parts[0][1:])
