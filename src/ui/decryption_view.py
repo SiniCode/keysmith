@@ -1,6 +1,7 @@
 from tkinter import ttk, Text, INSERT, constants
 import services.encryption
 
+
 class DecryptionView:
     def __init__(self, root, handle_keys, handle_encrypt):
         self._root = root
@@ -30,7 +31,8 @@ class DecryptionView:
         key_exponent = int(key_parts[1][1:-1])
 
         if ciphertext and key:
-            ciphertext = services.encryption.decrypt_message(ciphertext, key_modulus, key_exponent)
+            ciphertext = services.encryption.decrypt_message(
+                ciphertext, key_modulus, key_exponent)
 
         message_label = ttk.Label(
             master=self._frame,
@@ -41,9 +43,9 @@ class DecryptionView:
         message.insert(INSERT, ciphertext)
 
         message_label.grid(row=7, column=0, columnspan=2,
-                          padx=5, pady=5, sticky=constants.W)
+                           padx=5, pady=5, sticky=constants.W)
         message.grid(row=8, column=0, columnspan=2,
-                    padx=5, pady=5, sticky=constants.EW)
+                     padx=5, pady=5, sticky=constants.EW)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -89,15 +91,15 @@ class DecryptionView:
         )
 
         keys_button.grid(row=0, column=0, padx=5,
-                               pady=5, sticky=constants.W)
+                         pady=5, sticky=constants.W)
         encryption_button.grid(row=0, column=1, padx=5,
                                pady=5, sticky=constants.W)
         frame_label.grid(row=1, column=0, columnspan=2,
                          padx=10, pady=10, sticky=constants.EW)
         cipher_label.grid(row=2, column=0, columnspan=2,
-                           padx=5, pady=5, sticky=constants.W)
+                          padx=5, pady=5, sticky=constants.W)
         self._ciphertext.grid(row=3, column=0, columnspan=2,
-                           padx=5, pady=5, sticky=constants.EW)
+                              padx=5, pady=5, sticky=constants.EW)
         key_label.grid(row=4, column=0, columnspan=2,
                        padx=5, pady=5, sticky=constants.W)
         self._key.grid(row=5, column=0, columnspan=2,

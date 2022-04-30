@@ -2,6 +2,7 @@ from ui.key_creation_view import KeyCreationView
 from ui.encryption_view import EncryptionView
 from ui.decryption_view import DecryptionView
 
+
 class UI:
     def __init__(self, root):
         self._root = root

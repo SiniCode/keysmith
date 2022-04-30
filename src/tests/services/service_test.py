@@ -2,6 +2,7 @@ import unittest
 import services.keys
 import services.encryption
 
+
 class TestKeyCreationFunctions(unittest.TestCase):
 
     def test_find_exponent(self):
@@ -70,7 +71,7 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
         m_bit = services.encryption.text_to_binary_string(m)
         blocks = services.encryption.message_to_blocks(m_bit)
         self.assertEqual(len(blocks[0]), 512)
-        self.assertEqual(len(blocks[-1]), 512) 
+        self.assertEqual(len(blocks[-1]), 512)
 
     def test_byte_string_to_binary_string(self):
         s = "€".encode("utf-8")
@@ -91,15 +92,19 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
 
     def test_encrypt_message_returns_different_ciphertexts_each_time(self):
         key = services.keys.create_keys()[0]
-        test_value1 = services.encryption.encrypt_message("aaa", key[0], key[1])
-        test_value2 = services.encryption.encrypt_message("aaa", key[0], key[1])
+        test_value1 = services.encryption.encrypt_message(
+            "aaa", key[0], key[1])
+        test_value2 = services.encryption.encrypt_message(
+            "aaa", key[0], key[1])
         self.assertNotEqual(test_value1, test_value2)
 
     def test_decrypt_message_returns_correct_message(self):
         m = "Testing, testing..."
         keys = services.keys.create_keys()
-        encrypted = services.encryption.encrypt_message(m, keys[0][0], keys[0][1])
-        decrypted = services.encryption.decrypt_message(encrypted, keys[1][0], keys[1][1])
+        encrypted = services.encryption.encrypt_message(
+            m, keys[0][0], keys[0][1])
+        decrypted = services.encryption.decrypt_message(
+            encrypted, keys[1][0], keys[1][1])
         self.assertEqual(decrypted, m)
 
     def test_add_padding_returns_string_of_correct_length(self):

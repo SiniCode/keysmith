@@ -1,6 +1,7 @@
 from tkinter import ttk, Message, Text, INSERT, constants
 import services.encryption
 
+
 class EncryptionView:
     def __init__(self, root, handle_keys, handle_decrypt):
         self._root = root
@@ -30,7 +31,8 @@ class EncryptionView:
         key_exponent = int(key_parts[1][1:-1])
 
         if message and key:
-            ciphertext = services.encryption.encrypt_message(message, key_modulus, key_exponent)
+            ciphertext = services.encryption.encrypt_message(
+                message, key_modulus, key_exponent)
 
         cipher_label = ttk.Label(
             master=self._frame,
@@ -89,7 +91,7 @@ class EncryptionView:
         )
 
         keys_button.grid(row=0, column=0, padx=5,
-                               pady=5, sticky=constants.W)
+                         pady=5, sticky=constants.W)
         decryption_button.grid(row=0, column=1, padx=5,
                                pady=5, sticky=constants.W)
         frame_label.grid(row=1, column=0, columnspan=2,

@@ -9,8 +9,9 @@ def find_exponent(number):
         number: Integer value (the number tested for primality - 1).
 
     Returns:
-        A tuple where the first value gives the exponent for the first test value in the primality test (m),
-        and the second value determines the maximum number of iterations within each test round (p).
+        A tuple where the first value gives the exponent for the first
+        test value in the primality test (m), and the second value determines
+        the maximum number of iterations within each test round (p).
     """
 
     result = (1, 1)
@@ -85,11 +86,14 @@ def extended_euclidean(number1, number2):
 
     return (gcd, coefficient_x, coefficient_y)
 
+
 def generate_primes(product_length=1024):
-    """This function generates two probable prime numbers so that the bit length of their product is (around) the given length.
+    """This function generates two probable prime numbers so that
+       the bit length of their product is (around) the given length.
 
     Args:
-        product_length: Integer value that defines the minimum length for the product of the generated primes.
+        product_length: Integer value that defines the approximate length
+                        for the product of the generated primes.
 
     Returns:
         A list of two probable prime numbers.
@@ -106,6 +110,7 @@ def generate_primes(product_length=1024):
 
     return primes
 
+
 def create_keys(length=1024):
     """This function creates a key pair necessary for encryption and decryption.
 
@@ -113,7 +118,8 @@ def create_keys(length=1024):
         length: Integer value that expresses the minimum key length in bits.
 
     Returns:
-        A tuple containing the public key and the private key, ((modulus, public_exponent), (modulus, private_exponent)).
+        A tuple containing the public key and the private key,
+        ((modulus, public_exponent), (modulus, private_exponent)).
     """
 
     primes = generate_primes(length)
