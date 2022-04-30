@@ -30,7 +30,7 @@ class EncryptionView:
         key_exponent = int(key_parts[1][1:-1])
 
         if message and key:
-            ciphertext = services.encryption.simple_encrypt(message, key_modulus, key_exponent)
+            ciphertext = services.encryption.encrypt_message(message, key_modulus, key_exponent)
 
         cipher_label = ttk.Label(
             master=self._frame,
