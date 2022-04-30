@@ -65,6 +65,13 @@ class TestKeyCreationFunctions(unittest.TestCase):
 
 class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
 
+    def test_message_to_blocks_returns_512_bit_blocks(self):
+        m = "a" * 100
+        m_bit = services.encryption.text_to_binary_string(m)
+        blocks = services.encryption.message_to_blocks(m_bit)
+        self.assertEqual(len(blocks[0]), 512)
+        self.assertEqual(len(blocks[-1]), 512) 
+
     def test_byte_string_to_binary_string(self):
         s = "€".encode("utf-8")
         test_value = services.encryption.byte_string_to_binary_string(s)
@@ -74,75 +81,34 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
         test_value = services.encryption.text_to_binary_string("£$")
         self.assertEqual(test_value, "110000101010001100100100")
 
-    def test_bitwise_xor_with_strings_of_equal_length(self):
-        s1 = "10010101"
-        s2 = "01011111"
-        test_value = services.encryption.bitwise_xor(s1, s2)
-        self.assertEqual(test_value, "11001010")
-
-    def test_bitwise_xor_with_strings_of_different_length(self):
-        s1 = "10010101"
-        s2 = "1011111"
-        test_value = services.encryption.bitwise_xor(s1, s2)
-        self.assertEqual(test_value, "11001010")
-
     def test_generate_random_binary_string_returns_string_of_default_length(self):
         s = services.encryption.generate_random_binary_string()
-        self.assertEqual(len(s), 64)
+        self.assertEqual(len(s), 256)
 
     def test_generate_random_binary_string_returns_string_of_asked_length(self):
-        s = services.encryption.generate_random_binary_string(32)
-        self.assertEqual(len(s), 32)
+        s = services.encryption.generate_random_binary_string(64)
+        self.assertEqual(len(s), 64)
 
-    def test_encrypt_message_returns_different_strig_each_time(self):
-        m = "Testing"
+    def test_encrypt_message_returns_different_ciphertexts_each_time(self):
         key = services.keys.create_keys()[0]
-        cipher1 = services.encryption.encrypt_message(m, key[0], key[1])
-        cipher2 = services.encryption.encrypt_message(m, key[0], key[1])
-        self.assertNotEqual(cipher1, cipher2)
+        test_value1 = services.encryption.encrypt_message("aaa", key[0], key[1])
+        test_value2 = services.encryption.encrypt_message("aaa", key[0], key[1])
+        self.assertNotEqual(test_value1, test_value2)
 
     def test_decrypt_message_returns_correct_message(self):
-        m = "Testing"
+        m = "Testing, testing..."
         keys = services.keys.create_keys()
         encrypted = services.encryption.encrypt_message(m, keys[0][0], keys[0][1])
         decrypted = services.encryption.decrypt_message(encrypted, keys[1][0], keys[1][1])
         self.assertEqual(decrypted, m)
 
-    #This test fails because of UnicodeDecodeError
-    #def test_decrypt_message_returns_correct_message2(self):
-        #m = "Test"
-        #keys = services.keys.create_keys()
-        #encrypted = services.encryption.encrypt_message(m, keys[0][0], keys[0][1])
-        #decrypted = services.encryption.decrypt_message(encrypted, keys[1][0], keys[1][1])
-        #self.assertEqual(decrypted, m)
-
-#### Testing the simpler encryption and decryption functions below ####
-
-    def test_simple_encrypt_returns_integer(self):
-        key = services.keys.create_keys()[0]
-        test_value = services.encryption.simple_encrypt("aaa", key[0], key[1])
-        self.assertIsInstance(test_value, int)
-
-    def test_simple_encrypt_returns_different_integers(self):
-        key = services.keys.create_keys()[0]
-        test_value1 = services.encryption.simple_encrypt("aaa", key[0], key[1])
-        test_value2 = services.encryption.simple_encrypt("aaa", key[0], key[1])
-        self.assertNotEqual(test_value1, test_value2)
-
-    def test_simple_decrypt_returns_correct_message(self):
-        m = "Testing, testing..."
-        keys = services.keys.create_keys()
-        encrypted = services.encryption.simple_encrypt(m, keys[0][0], keys[0][1])
-        decrypted = services.encryption.simple_decrypt(encrypted, keys[1][0], keys[1][1])
-        self.assertEqual(decrypted, m)
-
-    def test_simple_padding_returns_string_of_correct_length(self):
+    def test_add_padding_returns_string_of_correct_length(self):
         s = "10010001"
-        padded = services.encryption.simple_padding(s)
-        self.assertEqual(len(padded), 72)
+        padded = services.encryption.add_padding(s)
+        self.assertEqual(len(padded), 264)
 
-    def test_simple_padding_returns_different_strings(self):
+    def test_add_padding_returns_different_strings_each_time(self):
         s = "10010001"
-        padded1 = services.encryption.simple_padding(s)
-        padded2 = services.encryption.simple_padding(s)
+        padded1 = services.encryption.add_padding(s)
+        padded2 = services.encryption.add_padding(s)
         self.assertNotEqual(padded1, padded2)
