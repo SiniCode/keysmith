@@ -15,4 +15,4 @@ def creating_keys_of_n_bits_test(n):
 if __name__ == "__main__":
 
     creating_keys_of_n_bits_test(1024)
-    creating_keys_of_n_bits_test(2058)
+    creating_keys_of_n_bits_test(2048)
