@@ -8,9 +8,9 @@ def creating_keys_of_n_bits_test(n):
         start = time()
         services.keys.create_keys(n)
         finish = time()
-        seconds.append(start - finish)
+        seconds.append(finish - start)
 
-    print(f"The average {n}-bit key creation time: {sum(seconds)/100}")
+    print(f"The average {n}-bit key creation time: {sum(seconds)/100} seconds")
 
 if __name__ == "__main__":
 
