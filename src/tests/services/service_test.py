@@ -5,13 +5,20 @@ import services.encryption
 
 class TestKeyCreationFunctions(unittest.TestCase):
 
-    def test_find_exponent(self):
+    def test_find_exponent_returns_2_tuple(self):
+        result = services.keys.find_exponent(52)
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(len(result), 2)
+
+    def test_find_exponent_returns_correct_result(self):
         result = services.keys.find_exponent(52)
         self.assertEqual(result, (13, 2))
-
-    def test_find_exponent2(self):
         result = services.keys.find_exponent(220)
         self.assertEqual(result, (55, 2))
+
+    def test_miller_rabin_primality_test_returns_boolean(self):
+        result = services.keys.miller_rabin_primality_test(109)
+        self.assertIsInstance(result, bool)
 
     def test_miller_rabin_primality_test_with_prime(self):
         self.assertTrue(services.keys.miller_rabin_primality_test(2))
@@ -26,11 +33,14 @@ class TestKeyCreationFunctions(unittest.TestCase):
         self.assertFalse(
             services.keys.miller_rabin_primality_test(42738459243))
 
-    def test_extended_euclidean(self):
+    def test_extended_euclidean_returns_3_tuple(self):
+        result = services.keys.extended_euclidean(1180, 482)
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(len(result), 3)
+
+    def test_extended_euclidean_returns_correct_result(self):
         result = services.keys.extended_euclidean(1180, 482)
         self.assertEqual(result, (2, -29, 71))
-
-    def test_extended_euclidean2(self):
         result = services.keys.extended_euclidean(888, 54)
         self.assertEqual(result, (6, -2, 33))
 
@@ -98,8 +108,17 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
             "aaa", key[0], key[1])
         self.assertNotEqual(test_value1, test_value2)
 
-    def test_decrypt_message_returns_correct_message(self):
+    def test_decrypt_message_returns_correct_short_message(self):
         m = "Testing, testing..."
+        keys = services.keys.create_keys()
+        encrypted = services.encryption.encrypt_message(
+            m, keys[0][0], keys[0][1])
+        decrypted = services.encryption.decrypt_message(
+            encrypted, keys[1][0], keys[1][1])
+        self.assertEqual(decrypted, m)
+
+    def test_decrypt_message_returns_correct_long_message(self):
+        m = "abcdE" * 100
         keys = services.keys.create_keys()
         encrypted = services.encryption.encrypt_message(
             m, keys[0][0], keys[0][1])
