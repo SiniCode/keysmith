@@ -26,3 +26,10 @@ poetry run invoke test
 ```bash
 poetry run invoke coverage-report
 ```
+
+## Performance Testing
+
+Key creation performance has been tested with 100 key pairs of 1024 and 2048 bits.
+
+* The average 1024-bit key creation time was 0.32 seconds.
+* The average 2048-bit key creation time was 2.99 seconds. 
