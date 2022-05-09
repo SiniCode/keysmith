@@ -4,25 +4,22 @@ def message_to_blocks(message):
     """This function enables encrypting longer messages by splitting it into blocks of 512 bits.
 
     Args:
-        message: Binary string that is the original message.
+        message: String value that is the original message.
 
     Returns:
         A list of binary strings, with the length of 512 bits each."""
 
-    if len(message) <= 512:
-        message = "0" * (512 - len(message)) + message
-        return [message]
-
     blocks = []
 
-    for index in range(0, len(message), 512):
-        if len(message) > index + 512:
-            block = message[index: index + 512]
+    for index in range(0, len(message), 16):
+        if len(message) > index + 16:
+            block = message[index:index + 16]
         else:
             block = message[index:]
-            block = "0" * (512 - len(block)) + block
-
-        blocks.append(block)
+        block_bin = text_to_binary_string(block)
+        if len(block_bin) < 512:
+            block_bin = "0" * (512 - len(block_bin)) + block_bin
+        blocks.append(block_bin)
 
     return blocks
 
@@ -70,7 +67,6 @@ def binary_string_to_text(binary_string):
     Returns:
         String value representing the binary string in plaintext form.
     """
-
     int_value = int(binary_string, 2)
     byte_value = int_value.to_bytes(
         (int_value.bit_length() + 7) // 8, byteorder="big")
@@ -109,8 +105,8 @@ def encrypt_message(message, key_mod, key_exp):
         String consisting of the encrypted blocks separated by "#".
     """
 
-    message_bin = text_to_binary_string(message)
-    message_blocks = message_to_blocks(message_bin)
+    message_blocks = message_to_blocks(message)
+
     encrypted_blocks = ""
     for block in message_blocks:
         padded_bin = add_padding(block)
@@ -134,15 +130,15 @@ def decrypt_message(ciphertext, key_mod, key_exp):
     """
 
     encrypted_blocks = ciphertext.split("#")
+
     message = ""
     for block in encrypted_blocks[0:-1]:
         padded_int = pow(int(block), key_exp, key_mod)
         padded_bin = bin(padded_int)
-        message += binary_string_to_text(
-            padded_bin[2:len(padded_bin) - 256].lstrip("0"))
+        unpadded_bin = padded_bin[2:len(padded_bin) - 256].lstrip("0")
+        message += binary_string_to_text(unpadded_bin)
 
     return message
-
 
 def add_padding(message):
     """This function adds a simple padding to the message.
