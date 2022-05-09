@@ -27,9 +27,32 @@ poetry run invoke test
 poetry run invoke coverage-report
 ```
 
-## Performance Testing
+## Performance testing
 
 Key creation performance has been tested with 100 key pairs of 1024 and 2048 bits.
 
-* The average 1024-bit key creation time was 0.32 seconds.
-* The average 2048-bit key creation time was 2.99 seconds. 
+### 1024-bit keys:
+
+| *Creation time* | *Seconds* |
+| Average | 0.302 |
+| Minimum | 0.142 |
+| Maximum | 0.588 |
+
+### 2048-bit keys:
+
+| *Creation time* | *Seconds* |
+| Average | 2.861 |
+| Minimum | 0.956 |
+| Maximum | 8.674 |
+
+### Running the performance test 
+
+You can repeat the performance test in the root directory with this command:
+
+```bash
+poetry run invoke performance-test
+```
+
+## Manual testing
+
+In addition to automated tests, encryption and decryption have been tested manually with various input messages, and all bugs that were found were fixed.
