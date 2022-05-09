@@ -58,6 +58,25 @@ class TestKeyCreationFunctions(unittest.TestCase):
         self.assertGreaterEqual(primes[0].bit_length(), 510)
         self.assertGreaterEqual(primes[1].bit_length(), 510)
 
+    def test_generate_primes_returns_integers_with_default_product_length(self):
+        primes = services.keys.generate_primes()
+        product = primes[0] * primes[1]
+        self.assertGreaterEqual(product.bit_length(), 1020)
+
+    def test_generate_primes_returns_integers_with_asked_product_length(self):
+        primes = services.keys.generate_primes(2048)
+        product = primes[0] * primes[1]
+        self.assertGreaterEqual(product.bit_length(), 2040)
+
+    def test_create_keys_returns_2_tuple_of_2_tuples(self):
+        keys = services.keys.create_keys()
+        self.assertIsInstance(keys, tuple)
+        self.assertEqual(len(keys), 2)
+        self.assertIsInstance(keys[0], tuple)
+        self.assertEqual(len(keys[0]), 2)
+        self.assertIsInstance(keys[1], tuple)
+        self.assertEqual(len(keys[1]), 2)
+
     def test_create_keys_returns_modulus_of_default_length(self):
         modulus = services.keys.create_keys()[0][0]
         length = modulus.bit_length()
@@ -68,7 +87,7 @@ class TestKeyCreationFunctions(unittest.TestCase):
         self.assertGreaterEqual(primes[0].bit_length(), 1020)
         self.assertGreaterEqual(primes[1].bit_length(), 1020)
 
-    def test_create_keys_returns_modulus_of_default_length(self):
+    def test_create_keys_returns_modulus_of_asked_length(self):
         modulus = services.keys.create_keys(2048)[0][0]
         length = modulus.bit_length()
         self.assertGreaterEqual(length, 2040)
@@ -78,8 +97,7 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
 
     def test_message_to_blocks_returns_512_bit_blocks(self):
         m = "a" * 100
-        m_bit = services.encryption.text_to_binary_string(m)
-        blocks = services.encryption.message_to_blocks(m_bit)
+        blocks = services.encryption.message_to_blocks(m)
         self.assertEqual(len(blocks[0]), 512)
         self.assertEqual(len(blocks[-1]), 512)
 
