@@ -33,17 +33,19 @@ Key creation performance has been tested with 100 key pairs of 1024 and 2048 bit
 
 ### 1024-bit keys:
 
-| *Creation time* | *Seconds* |
-| Average | 0.302 |
-| Minimum | 0.142 |
-| Maximum | 0.588 |
+| Creation time | Seconds |
+|:--------------|:-------:|
+| Average       | 0.302   |
+| Minimum       | 0.142   |
+| Maximum       | 0.588   |
 
 ### 2048-bit keys:
 
-| *Creation time* | *Seconds* |
-| Average | 2.861 |
-| Minimum | 0.956 |
-| Maximum | 8.674 |
+| Creation time | Seconds |
+|:--------------|:-------:|
+| Average       | 2.861   |
+| Minimum       | 0.956   |
+| Maximum       | 8.674   |
 
 ### Running the performance test 
 
