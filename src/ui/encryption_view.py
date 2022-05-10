@@ -1,4 +1,4 @@
-from tkinter import ttk, Message, Text, INSERT, constants
+from tkinter import ttk, Message, Text, INSERT, WORD, constants
 import services.encryption
 
 
@@ -36,10 +36,10 @@ class EncryptionView:
 
         cipher_label = ttk.Label(
             master=self._frame,
-            text="Encrypted Message:",
+            text="Encrypted message:",
             font=self._heading2_font
         )
-        cipher = Text(self._frame, height=15)
+        cipher = Text(self._frame, height=8)
         cipher.insert(INSERT, ciphertext)
 
         cipher_label.grid(row=7, column=0, columnspan=2,
@@ -74,7 +74,8 @@ class EncryptionView:
             font=self._heading2_font
         )
 
-        self._message = Text(self._frame, height=6)
+        self._message = Text(
+            master=self._frame, height=8, wrap=WORD)
 
         key_label = ttk.Label(
             master=self._frame,
@@ -82,7 +83,7 @@ class EncryptionView:
             font=self._heading2_font
         )
 
-        self._key = Text(self._frame, height=6)
+        self._key = Text(self._frame, height=8)
 
         encrypt_button = ttk.Button(
             master=self._frame,

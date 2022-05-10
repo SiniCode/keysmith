@@ -1,4 +1,4 @@
-from tkinter import ttk, Text, INSERT, constants
+from tkinter import ttk, Text, INSERT, WORD, constants
 import services.encryption
 
 
@@ -31,16 +31,16 @@ class DecryptionView:
         key_exponent = int(key_parts[1][1:-1])
 
         if ciphertext and key:
-            ciphertext = services.encryption.decrypt_message(
+            plaintext = services.encryption.decrypt_message(
                 ciphertext, key_modulus, key_exponent)
 
         message_label = ttk.Label(
             master=self._frame,
-            text="Decrypted Message:",
+            text="Decrypted message:",
             font=self._heading2_font
         )
-        message = Text(self._frame, height=6)
-        message.insert(INSERT, ciphertext)
+        message = Text(self._frame, height=8, wrap=WORD)
+        message.insert(INSERT, plaintext)
 
         message_label.grid(row=7, column=0, columnspan=2,
                            padx=5, pady=5, sticky=constants.W)
@@ -74,7 +74,7 @@ class DecryptionView:
             font=self._heading2_font
         )
 
-        self._ciphertext = Text(self._frame, height=15)
+        self._ciphertext = Text(self._frame, height=8)
 
         key_label = ttk.Label(
             master=self._frame,

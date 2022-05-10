@@ -25,20 +25,20 @@ class KeyCreationView:
         key_tuple = services.keys.create_keys()
         public_label = ttk.Label(
             master=self._frame,
-            text="Public Key:",
+            text="Public key:",
             font=self._heading2_font
         )
         public_text = f"{key_tuple[0]}"
-        public_key = Text(self._frame, height=10)
+        public_key = Text(self._frame, height=6)
         public_key.insert(INSERT, public_text)
 
         private_label = ttk.Label(
             master=self._frame,
-            text="Private Key:",
+            text="Private key:",
             font=self._heading2_font
         )
         private_text = f"{key_tuple[1]}"
-        private_key = Text(self._frame, height=15)
+        private_key = Text(self._frame, height=10)
         private_key.insert(INSERT, private_text)
 
         public_label.grid(row=4, column=0, columnspan=2,
@@ -71,12 +71,12 @@ class KeyCreationView:
             font=self._heading1_font
         )
 
-        text = """Click the button below to create a secure key pair.\nCopy the created keys to a safe location. You can share the public key freely but you must keep the private key to yourself."""
+        text = """Click the button below to create a secure key pair. Copy the created keys to a safe location.\nYou can share the public key freely but you must keep the private key to yourself."""
 
         instructions = Message(
             self._frame,
             text=text,
-            width=1400,
+            width=1000,
             font=self._body_font
         )
 
@@ -96,4 +96,5 @@ class KeyCreationView:
                           padx=5, pady=5, sticky=constants.W)
         create_button.grid(row=3, column=0, columnspan=2,
                            padx=10, pady=10, sticky=constants.EW)
+
         self._frame.grid_columnconfigure(1, weight=1)

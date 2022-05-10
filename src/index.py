@@ -5,6 +5,7 @@ from ui.ui import UI
 def main():
     window = Tk()
     window.title("Keysmith")
+    window.geometry('1000x1000+0+0')
 
     ui_view = UI(window)
     ui_view.start()
