@@ -29,23 +29,23 @@ poetry run invoke coverage-report
 
 ## Performance testing
 
-Key creation performance has been tested with 100 key pairs of 1024 and 2048 bits.
+Key creation is the most complex task of this software. The performance has been tested with 100 key pairs of 1024 and 2048 bits with the following results.
 
 ### 1024-bit keys:
 
 | Creation time | Seconds |
 |:--------------|:-------:|
-| Average       | 0.302   |
-| Minimum       | 0.142   |
-| Maximum       | 0.588   |
+| Average       | 0.238   |
+| Minimum       | 0.073   |
+| Maximum       | 0.624   |
 
 ### 2048-bit keys:
 
 | Creation time | Seconds |
 |:--------------|:-------:|
-| Average       | 2.861   |
-| Minimum       | 0.956   |
-| Maximum       | 8.674   |
+| Average       | 2.570   |
+| Minimum       | 0.607   |
+| Maximum       | 8.478   |
 
 ### Running the performance test 
 
@@ -57,4 +57,5 @@ poetry run invoke performance-test
 
 ## Manual testing
 
-In addition to automated tests, encryption and decryption have been tested manually with various input messages, and all bugs that were found were fixed.
+In addition to automated tests, encryption and decryption have been tested manually with various input messages, and all bugs that were found have been fixed.
+Also, to make sure that the function `generate_primes` generates actual prime numbers in key creation, a set of generated primes was checked with an independent [primality test tool](https://www.dcode.fr/primality-test).

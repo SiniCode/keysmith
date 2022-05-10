@@ -23,7 +23,7 @@ def find_exponent(number):
     return result
 
 
-def miller_rabin_primality_test(number, iterations=128):
+def miller_rabin_primality_test(number, iterations=64):
     """This function is a probabilistic primality test for the given number.
     Args:
         number: Integer value to be tested.
