@@ -1,5 +1,6 @@
 from random import choice
 
+
 def message_to_blocks(message):
     """This function enables encrypting longer messages by splitting it into blocks of 512 bits.
 
@@ -139,6 +140,7 @@ def decrypt_message(ciphertext, key_mod, key_exp):
         message += binary_string_to_text(unpadded_bin)
 
     return message
+
 
 def add_padding(message):
     """This function adds a simple padding to the message.

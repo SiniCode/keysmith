@@ -133,6 +133,7 @@ def create_keys(length=1024):
 
     return ((modulus, public_exponent), (modulus, private_exponent))
 
+
 def creating_keys_of_n_bits_test(n):
     """This function runs a performance test creating 100 keys of length n
        and prints the average, minimum, and maximum key creation time."""
@@ -148,6 +149,7 @@ def creating_keys_of_n_bits_test(n):
     print(f"The average {n}-bit key creation time: {sum(seconds)/100} seconds")
     print(f"The minimum {n}-bit key creation time: {min(seconds)} seconds")
     print(f"The maximum {n}-bit key creation time: {max(seconds)} seconds")
+
 
 if __name__ == "__main__":
 

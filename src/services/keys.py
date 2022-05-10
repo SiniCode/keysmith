@@ -79,10 +79,11 @@ def extended_euclidean(number1, number2):
     if number1 == 0:
         return number2, 0, 1
 
-    gcd, x1, y1 = extended_euclidean(number2 % number1, number1)
+    gcd, coefficient_x1, coefficient_y1 = extended_euclidean(
+        number2 % number1, number1)
 
-    coefficient_x = y1 - (number2 // number1) * x1
-    coefficient_y = x1
+    coefficient_x = coefficient_y1 - (number2 // number1) * coefficient_x1
+    coefficient_y = coefficient_x1
 
     return (gcd, coefficient_x, coefficient_y)
 
@@ -103,7 +104,7 @@ def generate_primes(product_length=1024):
     variation = 3
     while len(primes) < 2:
         number = getrandbits(product_length // 2 + variation)
-        if primes != [] and number.bit_length() == primes[0].bit_length():
+        if primes and number.bit_length() == primes[0].bit_length():
             continue
         if miller_rabin_primality_test(number) is False:
             continue
