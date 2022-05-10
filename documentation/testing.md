@@ -59,3 +59,11 @@ poetry run invoke performance-test
 
 In addition to automated tests, encryption and decryption have been tested manually with various input messages, and all bugs that were found have been fixed.
 Also, to make sure that the function `generate_primes` generates actual prime numbers in key creation, a set of generated primes was checked with an independent [primality test tool](https://www.dcode.fr/primality-test).
+
+## Code quality
+
+The quality of the code has been tested with pylint. The score was 9.92/10.
+You can run the pylint check in the root folder with this command:
+```bash
+poetry run invoke lint
+```
