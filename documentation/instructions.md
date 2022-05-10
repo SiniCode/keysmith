@@ -18,7 +18,7 @@ poetry run invoke start
 This opens a simple graphical user interface with three views:
 * Key creation view
 * Encryption view
-* Decryption view
+* Decryption view\
 You can change views by clicking the buttons on the top left corner of the view.
 
 ## Key Creation View
@@ -35,7 +35,7 @@ You can encrypt any message you like by typing it to the first text box and past
 To paste, copy the key to clipboard, click the text box, and press Ctrl + V.
 Either of the keys can be used for encryption as long as the other is used for decryption.
 * Encrypting the message with the public key ensures that you are the only person who can decrypt the message.
-* Encrypting the message with the private key works as a signature: if the recipient can decrypt the message with your public key, they know that the message must be from you and not anybody else.
+* Encrypting the message with the private key works as a signature: if the recipient can decrypt the message with your public key, they know that the message must be from you and not anybody else.\
 The encrypted message will appear in a third text box. You may copy it the same way as the keys.
 
 ## Decryption View
