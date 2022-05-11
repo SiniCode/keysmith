@@ -1,9 +1,9 @@
-# Instructions for Use
+# Instructions for Use (Linux)
 
 ## Installation
 
 1. Download the project .zip file to your computer and unzip it.
-2. Navigate to the root folder `keysmith`.
+2. Navigate to the root folder `keysmith-main`.
 3. Install the necessary dependencies with this command:
 ```bash
 poetry install
@@ -30,6 +30,8 @@ Copy both keys to a safe location. To copy the text, you need to select it with 
 Make sure that you copy the whole key with the brackets.
 You may share the public key freely but **you must keep the private key to yourself**.
 
+![](./images/key_creation_view.png)
+
 ## Encryption View
 
 You can encrypt any message you like by typing it to the first text box and pasting the encryption key to the other text box. Then, click the `ENCRYPT` button.
@@ -40,10 +42,14 @@ Either of the keys can be used for encryption as long as the other is used for d
 
 The encrypted message will appear in a third text box. You may copy it the same way as the keys.
 
+![](./images/encryption_view.png)
+
 ## Decryption View
 
 You can decrypt a message by pasting the ciphertext (the encrypted message) to the first text box and the decryption key to the other box. Then, click the `DECRYPT` button.
 The decrypted message should appear in a third text box. If nothing happens, make sure that you have used the correct decryption key.
+
+![](./images/decryption_view.png)
 
 ## Closing the App
 
