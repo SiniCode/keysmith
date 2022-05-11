@@ -55,3 +55,14 @@ The `UI` class in [ui.py](https://github.com/SiniCode/keysmith/blob/main/src/ui/
 
 The padding system used in this application is very simple and does not provide the same security level as Optimal Asymmetric Encryption Padding (OAEP) that should be used with RSA to prevent sophisticated attacks.
 In addition, the graphical user interface has been implemented mainly for testing the functionalities. It is visually dull and lacks many features that would make it more convenient for the user, e.g., a scroll bar and the possibility to choose the length of the keys.
+
+## Sources
+
+1. "[Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm)", 2021, *Wikipedia*, wiki article, viewed 12 May 2022.
+2. "[Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test)", 2022, *Wikipedia*, wiki article, viewed 12 May 2022.
+3. "[Miller-Rabin Primality Test](https://www.youtube.com/watch?v=qdylJqXCDGs)", 2016, *YouTube*, video, viewed 12 May 2022.
+4. "[Primality Test | Set 3 (Miller-Rabin)](https://www.geeksforgeeks.org/primality-test-set-3-miller-rabin/)", 2022, *GeeksforGeeks*, online article, viewed 12 May 2022.
+5. Prudhomme, Antoine 2018, "[How to generate big prime numbers - Miller-Rabin](https://medium.com/@prudywsh/how-to-generate-big-prime-numbers-miller-rabin-49e6e6af32fb)", *Medium*, online article, viewed 12 May 2022.
+6. "[Python Program for Extended Euclidean algorithms](https://www.geeksforgeeks.org/python-program-for-basic-and-extended-euclidean-algorithms-2/)", 2020, *GeeksforGeeks*, online article, viewed 12 May 2022.
+7. "[RSA (cryptosystem)](https://en.wikipedia.org/wiki/RSA_(cryptosystem))", 2022, *Wikipedia*, wiki article, viewed 12 May 2022.
+8. "[The Extended Euclidean Algorithm](https://www.youtube.com/watch?v=hB34-GSDT3k)", 2014, *YouTube*, video, viewed 12 May 2022.
