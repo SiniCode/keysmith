@@ -26,13 +26,16 @@ class EncryptionView:
     def _encrypt_message(self):
         message = self._message.get("1.0", "end - 1 chars")
         key = self._key.get("1.0", "end - 1 chars")
-        key_parts = key.split(",")
-        key_modulus = int(key_parts[0][1:])
-        key_exponent = int(key_parts[1][1:-1])
+        try:
+            key_parts = key.split(",")
+            key_modulus = int(key_parts[0][1:])
+            key_exponent = int(key_parts[1][1:-1])
 
-        if message and key:
             ciphertext = services.encryption.encrypt_message(
                 message, key_modulus, key_exponent)
+
+        except:
+            ciphertext = "Oops... Something went wrong. Make sure that you have used a valid key."
 
         cipher_label = ttk.Label(
             master=self._frame,

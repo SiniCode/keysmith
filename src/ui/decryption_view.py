@@ -26,13 +26,16 @@ class DecryptionView:
     def _decrypt_message(self):
         ciphertext = self._ciphertext.get("1.0", "end - 1 chars")
         key = self._key.get("1.0", "end - 1 chars")
-        key_parts = key.split(",")
-        key_modulus = int(key_parts[0][1:])
-        key_exponent = int(key_parts[1][1:-1])
 
-        if ciphertext and key:
+        try:
+            key_parts = key.split(",")
+            key_modulus = int(key_parts[0][1:])
+            key_exponent = int(key_parts[1][1:-1])
+
             plaintext = services.encryption.decrypt_message(
                 ciphertext, key_modulus, key_exponent)
+        except:
+            plaintext = "Oops... Something went wrong. Make sure that you have used the correct key."
 
         message_label = ttk.Label(
             master=self._frame,

@@ -38,16 +38,17 @@ You can encrypt any message you like by typing it to the first text box and past
 To paste, copy the key to clipboard, click the text box, and press Ctrl + V.
 Either of the keys can be used for encryption as long as the other is used for decryption.
 * Encrypting the message with the public key ensures that you are the only person who can decrypt the message.
-* Encrypting the message with the private key works as a signature: if the recipient can decrypt the message with your public key, they know that the message must be from you and not anybody else.
+* Encrypting the message with the private key works as a signature: if the recipient can decrypt the message with your public key, they know that the message must be from you and not from anybody else.
 
 The encrypted message will appear in a third text box. You may copy it the same way as the keys.
+If you give an invalid key, error message will appear in the third box.
 
 ![](./images/encryption_view.png)
 
 ## Decryption View
 
 You can decrypt a message by pasting the ciphertext (the encrypted message) to the first text box and the decryption key to the other box. Then, click the `DECRYPT` button.
-The decrypted message should appear in a third text box. If nothing happens, make sure that you have used the correct decryption key.
+The decrypted message should appear in a third text box. If you give an incorrect key, error message will appear in that box.
 
 ![](./images/decryption_view.png)
 
