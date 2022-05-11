@@ -23,7 +23,7 @@ The next step in key creation is to compute Carmichael's totient function of the
 To calculate this, `create_keys` calls the `extended_euclidean` function that calculates the greatest common divisor (gcd) of given numbers *a* and *b*, as well as the coefficients *x* and *y* such that *ax* + *by* = gcd(*a*, *b*).
 Now, lcm(*a*, *b*) = |*ab*|/gcd(*a*, *b*), and the public exponent should be an integer between 1 and λ(*n*) such that gcd(*exponent*, λ(*n*)) = 1.
 To improve efficiency, the public key exponent should have a small bit length and Hamming weight but not too small to compromise the security.
-In this application, the default value for public key exponent is 2<sup>16</sup> = 65537, which is commonly used in RSA applications.
+In this application, the default value for public key exponent is 2<sup>16</sup> + 1 = 65537, which is commonly used in RSA applications.
 
 The private exponent, then, must be the modular multiplicative inverse of the public exponent modulo λ(*n*). It is also calculated with the `extended_euclidean` function.
 
@@ -32,14 +32,14 @@ The private exponent, then, must be the modular multiplicative inverse of the pu
 The `encrypt_message` function first calls `message_to_blocks` function that converts the message into binary form and splits it into 512-bit blocks.
 Cutting up the message and encrypting it in blocks allows for processing also messages with greater bit-length than the key modulus.
 For each block, `encrypt_message` calls the `add_padding` function that concatenates the block with 256 random bits. The idea of the padding is to provide protection against chosen plaintext attack.
-Finally, the padded binary message is converted into an integer *m* and the ciphertext is calculates as *m* to the power of *e* modulo *n*, where *e* is the encryption key exponent and *n* is the key modulus.
+Finally, the padded binary message is converted into an integer *m* and the ciphertext is calculated as *m* to the power of *e* modulo *n*, where *e* is the encryption key exponent and *n* is the key modulus.
 The encrypted message consists of all the blocks concatenated with each other and separated by "#".
 
 #### Decryption
 
 The `decrypt_message` function first separates the blocks from each other and the decryption is executed block by block.
 Now, the encrypted block is an integer *c*, and it is decrypted by calculating *c* to the power of *d* modulo *n*, where *d* is the decryption key exponent and *n* is the key modulus.
-After decryption, the block is converted into binary form and the padding is removed. Finally, the binary string is converted to plaintext and all the blocks are concatenated together, giving the original message.
+After decryption, the block is converted into binary form and the padding is removed. Finally, the binary string is converted into plaintext and all the blocks are concatenated together, giving the original message.
 
 ### User interface
 
@@ -54,4 +54,4 @@ The `UI` class in [ui.py](https://github.com/SiniCode/keysmith/blob/main/src/ui/
 ## Shortcomings
 
 The padding system used in this application is very simple and does not provide the same security level as Optimal Asymmetric Encryption Padding (OAEP) that should be used with RSA to prevent sophisticated attacks.
-In addition, the graphical user interface has been implemented mainly for testing the functionalities. It's visually dull and lacks many features that would make it more convenient for the user, e.g., a scroll bar and the possibility to choose the length of the keys.
+In addition, the graphical user interface has been implemented mainly for testing the functionalities. It is visually dull and lacks many features that would make it more convenient for the user, e.g., a scroll bar and the possibility to choose the length of the keys.
