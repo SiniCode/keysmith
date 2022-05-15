@@ -107,7 +107,9 @@ def generate_primes(product_length=1024):
     variation = 3
     while len(primes) < 2:
         number = getrandbits(product_length // 2 + variation)
-        if primes and (number.bit_length() == primes[0].bit_length() or (primes[0] * number).bit_length() != product_length):
+        if primes and number.bit_length() == primes[0].bit_length():
+            continue
+        if primes and (primes[0] * number).bit_length() != product_length:
             continue
         if miller_rabin_primality_test(number) is False:
             continue
