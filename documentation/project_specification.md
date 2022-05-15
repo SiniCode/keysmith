@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal is to produce an encryption application following the [RSA algorithm](https://en.wikipedia.org/wiki/RSA_(cryptosystem)).
+The goal is to produce an encryption application following the RSA algorithm.
 
 ## Features
 
@@ -33,3 +33,4 @@ The algorithm calculates the greatest common divisor of two numbers, a and b, as
 
 1. "[Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm)", 2021, *Wikipedia*, wiki article, viewed 15 May 2022.
 2. "[Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test)", 2022, *Wikipedia*, wiki article, viewed 15 May 2022. 
+3. "[RSA (cryptosystem)](https://en.wikipedia.org/wiki/RSA_(cryptosystem))", 2022, *Wikipedia*, wiki article, viewed 15 May 2022.
