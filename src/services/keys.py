@@ -14,6 +14,9 @@ def find_exponent(number):
         the maximum number of iterations within each test round (p).
     """
 
+    if number == 0:
+        return (0, 1)
+
     result = (1, 1)
     power = 1
     while True:
@@ -104,7 +107,7 @@ def generate_primes(product_length=1024):
     variation = 3
     while len(primes) < 2:
         number = getrandbits(product_length // 2 + variation)
-        if primes and number.bit_length() == primes[0].bit_length():
+        if primes and (number.bit_length() == primes[0].bit_length() or (primes[0] * number).bit_length() != product_length):
             continue
         if miller_rabin_primality_test(number) is False:
             continue
