@@ -130,7 +130,7 @@ class TestKeyCreationFunctions(unittest.TestCase):
 class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
 
     def test_message_to_blocks_returns_512_bit_blocks(self):
-        m = "a" * 100
+        m = "a" * 300
         blocks = services.encryption.message_to_blocks(m)
         self.assertEqual(len(blocks[0]), 512)
         self.assertEqual(len(blocks[-1]), 512)
@@ -188,7 +188,7 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
         self.assertEqual(decrypted, m)
 
     def test_decrypt_message_with_scandinavian_letters(self):
-        m = "åäöåäö"
+        m = "åäöÅÄÖ"
         keys = services.keys.create_keys()
         encrypted = services.encryption.encrypt_message(
             m, keys[0][0], keys[0][1])
