@@ -5,10 +5,12 @@ import services.encryption
 
 class TestKeyCreationFunctions(unittest.TestCase):
 
-    def test_find_exponent_returns_2_tuple(self):
+    def test_find_exponent_returns_2_tuple_of_integers(self):
         result = services.keys.find_exponent(52)
         self.assertIsInstance(result, tuple)
         self.assertEqual(len(result), 2)
+        self.assertIsInstance(result[0], int)
+        self.assertIsInstance(result[1], int)
 
     def test_find_exponent_returns_correct_result(self):
         result = services.keys.find_exponent(52)
@@ -16,33 +18,53 @@ class TestKeyCreationFunctions(unittest.TestCase):
         result = services.keys.find_exponent(220)
         self.assertEqual(result, (55, 2))
 
+    def test_find_exponent_with_zero(self):
+        result = services.keys.find_exponent(0)
+        self.assertEqual(result, (0, 1))
+
     def test_miller_rabin_primality_test_returns_boolean(self):
         result = services.keys.miller_rabin_primality_test(109)
         self.assertIsInstance(result, bool)
 
     def test_miller_rabin_primality_test_with_prime(self):
         self.assertTrue(services.keys.miller_rabin_primality_test(2))
+        self.assertTrue(services.keys.miller_rabin_primality_test(3))
         self.assertTrue(services.keys.miller_rabin_primality_test(109))
         self.assertTrue(services.keys.miller_rabin_primality_test(
             19134702400093278081449423917))
 
     def test_miller_rabin_primality_test_with_composite(self):
-        self.assertFalse(services.keys.miller_rabin_primality_test(1))
         self.assertFalse(services.keys.miller_rabin_primality_test(133))
         self.assertFalse(services.keys.miller_rabin_primality_test(12668))
         self.assertFalse(
             services.keys.miller_rabin_primality_test(42738459243))
 
-    def test_extended_euclidean_returns_3_tuple(self):
+    def test_miller_rabin_primality_test_with_non_prime(self):
+        self.assertFalse(services.keys.miller_rabin_primality_test(0))
+        self.assertFalse(services.keys.miller_rabin_primality_test(1))
+
+    def test_miller_rabin_primality_test_with_procuct_of_big_primes(self):
+        primes = services.keys.generate_primes()
+        product = primes[0] * primes[1]
+        self.assertFalse(services.keys.miller_rabin_primality_test(product))
+
+    def test_extended_euclidean_returns_3_tuple_of_integers(self):
         result = services.keys.extended_euclidean(1180, 482)
         self.assertIsInstance(result, tuple)
         self.assertEqual(len(result), 3)
+        self.assertIsInstance(result[0], int)
+        self.assertIsInstance(result[1], int)
+        self.assertIsInstance(result[2], int)
 
     def test_extended_euclidean_returns_correct_result(self):
         result = services.keys.extended_euclidean(1180, 482)
         self.assertEqual(result, (2, -29, 71))
         result = services.keys.extended_euclidean(888, 54)
         self.assertEqual(result, (6, -2, 33))
+
+    def test_extended_euclidean_with_zero_as_number1(self):
+        result = services.keys.extended_euclidean(0, 9)
+        self.assertEqual(result, (9, 0, 1))
 
     def test_generate_primes_returns_list_with_two_elements(self):
         primes = services.keys.generate_primes()
@@ -53,20 +75,25 @@ class TestKeyCreationFunctions(unittest.TestCase):
         primes = services.keys.generate_primes()
         self.assertNotEqual(primes[1].bit_length(), primes[0].bit_length())
 
-    def test_generate_primes_returns_integers_of_default_lenth(self):
+    def test_generate_primes_returns_list_of_integers(self):
         primes = services.keys.generate_primes()
-        self.assertGreaterEqual(primes[0].bit_length(), 510)
-        self.assertGreaterEqual(primes[1].bit_length(), 510)
+        self.assertIsInstance(primes[0], int)
+        self.assertIsInstance(primes[1], int)
+
+    def test_generate_primes_returns_primes(self):
+        primes = services.keys.generate_primes()
+        self.assertTrue(services.keys.miller_rabin_primality_test(primes[0]))
+        self.assertTrue(services.keys.miller_rabin_primality_test(primes[1]))
 
     def test_generate_primes_returns_integers_with_default_product_length(self):
         primes = services.keys.generate_primes()
         product = primes[0] * primes[1]
-        self.assertGreaterEqual(product.bit_length(), 1020)
+        self.assertEqual(product.bit_length(), 1024)
 
     def test_generate_primes_returns_integers_with_asked_product_length(self):
         primes = services.keys.generate_primes(2048)
         product = primes[0] * primes[1]
-        self.assertGreaterEqual(product.bit_length(), 2040)
+        self.assertEqual(product.bit_length(), 2048)
 
     def test_create_keys_returns_2_tuple_of_2_tuples(self):
         keys = services.keys.create_keys()
@@ -76,6 +103,13 @@ class TestKeyCreationFunctions(unittest.TestCase):
         self.assertEqual(len(keys[0]), 2)
         self.assertIsInstance(keys[1], tuple)
         self.assertEqual(len(keys[1]), 2)
+
+    def test_create_keys_returns_tuples_of_integers(self):
+        keys = services.keys.create_keys()
+        self.assertIsInstance(keys[0][0], int)
+        self.assertIsInstance(keys[0][1], int)
+        self.assertIsInstance(keys[1][0], int)
+        self.assertIsInstance(keys[1][1], int)
 
     def test_create_keys_returns_modulus_of_default_length(self):
         modulus = services.keys.create_keys()[0][0]
@@ -142,6 +176,33 @@ class TestEncryptionAndDecryptionFunctions(unittest.TestCase):
             m, keys[0][0], keys[0][1])
         decrypted = services.encryption.decrypt_message(
             encrypted, keys[1][0], keys[1][1])
+        self.assertEqual(decrypted, m)
+
+    def test_decrypt_message_with_special_characters(self):
+        m = "¤%&*£$~^"
+        keys = services.keys.create_keys()
+        encrypted = services.encryption.encrypt_message(
+            m, keys[0][0], keys[0][1])
+        decrypted = services.encryption.decrypt_message(
+            encrypted, keys[1][0], keys[1][1])
+        self.assertEqual(decrypted, m)
+
+    def test_decrypt_message_with_scandinavian_letters(self):
+        m = "åäöåäö"
+        keys = services.keys.create_keys()
+        encrypted = services.encryption.encrypt_message(
+            m, keys[0][0], keys[0][1])
+        decrypted = services.encryption.decrypt_message(
+            encrypted, keys[1][0], keys[1][1])
+        self.assertEqual(decrypted, m)
+
+    def test_decrypt_message_with_keys_swapped(self):
+        m = "Test123!"
+        keys = services.keys.create_keys()
+        encrypted = services.encryption.encrypt_message(
+            m, keys[1][0], keys[1][1])
+        decrypted = services.encryption.decrypt_message(
+            encrypted, keys[0][0], keys[0][1])
         self.assertEqual(decrypted, m)
 
     def test_add_padding_returns_string_of_correct_length(self):
