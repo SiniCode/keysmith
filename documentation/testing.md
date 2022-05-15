@@ -3,7 +3,7 @@
 ## Unit testing
 
 The software has automated unit tests for the functions that are used in key creation, encryption, and decryption.
-Test coverage is 96 %.
+Test coverage is 95 %.
 
 ![](./images/coverage_report.png)
 
@@ -35,17 +35,17 @@ Key creation is the most complex task of this software. The performance has been
 
 | Creation time | Seconds |
 |:--------------|:-------:|
-| Average       | 0.238   |
-| Minimum       | 0.073   |
-| Maximum       | 0.624   |
+| Average       | 0.249   |
+| Minimum       | 0.065   |
+| Maximum       | 0.818   |
 
 ### 2048-bit keys:
 
 | Creation time | Seconds |
 |:--------------|:-------:|
-| Average       | 2.570   |
-| Minimum       | 0.607   |
-| Maximum       | 8.478   |
+| Average       | 2.370   |
+| Minimum       | 0.590   |
+| Maximum       | 8.181   |
 
 ### Running the performance test 
 
