@@ -5,14 +5,14 @@
 ### Services
 
 All the functionality that the app provides is inside the [services](https://github.com/SiniCode/keysmith/tree/main/src/services) directory.
-These services are further divided into
+These services are further divided into two categories:
 * key creation functions in the [keys.py](https://github.com/SiniCode/keysmith/blob/main/src/services/keys.py) file
-* encryption and decryption functions in the [encryption.py](https://github.com/SiniCode/keysmith/blob/main/src/services/encryption.py) file.
+* encryption and decryption functions in the [encryption.py](https://github.com/SiniCode/keysmith/blob/main/src/services/encryption.py) file
 
 #### Key creation
 
 RSA key pair is asymmetric: the public and private key have a common *modulus*, and a unique *exponent*.
-The modulus is a product of two large prime numbers. In this application, the default length of the modulus is around 1024 bits. 
+The modulus is a product of two large prime numbers. In this application, the default length of the modulus is 1024 bits. 
 The `create_keys` function first calls `generate_primes` fuction to calculate the modulus. To check the primality of the random numbers that `generate_primes` generates, it calls the `miller_rabin_primality_test` function.
 
 The Miller-Rabin primality test is a probabilistic primality test, which means that the algorithm cannot guarantee that a number is a prime number, but that it is likely to be.
@@ -30,9 +30,9 @@ The private exponent, then, must be the modular multiplicative inverse of the pu
 #### Encryption
 
 The `encrypt_message` function first calls `message_to_blocks` function that converts the message into binary form and splits it into 512-bit blocks.
-Cutting up the message and encrypting it in blocks allows for processing also messages with greater bit-length than the key modulus.
+Cutting up the message and encrypting it in blocks allows for processing messages with greater bit-length than the key modulus.
 For each block, `encrypt_message` calls the `add_padding` function that concatenates the block with 256 random bits. The idea of the padding is to provide protection against chosen plaintext attack.
-Finally, the padded binary message is converted into an integer *m* and the ciphertext is calculated as *m* to the power of *e* modulo *n*, where *e* is the encryption key exponent and *n* is the key modulus.
+Finally, the padded binary message block is converted into an integer *m* and the ciphertext is calculated as *m* to the power of *e* modulo *n*, where *e* is the encryption key exponent and *n* is the key modulus.
 The encrypted message consists of all the blocks concatenated with each other and separated by "#".
 
 #### Decryption
@@ -54,7 +54,7 @@ The `UI` class in [ui.py](https://github.com/SiniCode/keysmith/blob/main/src/ui/
 ## Shortcomings
 
 The padding system used in this application is very simple and does not provide the same security level as Optimal Asymmetric Encryption Padding (OAEP) that should be used with RSA to prevent sophisticated attacks.
-In addition, the graphical user interface has been implemented mainly for testing the functionalities. It is visually dull and lacks many features that would make it more convenient for the user, e.g., a scroll bar and the possibility to choose the length of the keys.
+In addition, the graphical user interface has been implemented mainly for testing the functionalities. It is visually dull and lacks many features that would make it more convenient for the user, e.g., a scroll bar, and the possibility to choose the length of the keys and save them for later use.
 
 ## Sources
 
